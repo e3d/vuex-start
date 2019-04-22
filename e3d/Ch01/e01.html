@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>e3d Vue.js App</title>
+</head>
+<body>
+<div id="app">
+    <div>Now you see me</div>
+    {{message}} - <br>
+    {{ price }} - <br>
+    details: {{ details }} <br>
+    message lower: {{ messageLowerCase }} <br>
+    cost: {{this.cost}}
+</div>
+
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+// JS Code here
+    // const app = new Vue().$mount('#app')
+    const app = new Vue({
+        el: '#app',
+
+        data: {
+            message: 'Hi e3d',
+            price: 19,
+            currency: '$',
+            salesTax: 16,
+            details: ['one', 'two', 'three']
+        },
+
+        computed: {
+            messageLowerCase() {
+                return this.message.toLowerCase()
+            },
+            cost() {
+                let itemCost = parseFloat(Math.round(
+                    (this.salesTax/100 + 1) * this.price).toFixed(2)
+                )
+
+                let output = `This item costs ${this.currency}${itemCost} 
+                              (${this.currency}${this.price} excluding salesTax)`
+
+                return output
+            }
+        },
+    })
+
+    // app.$mount('#app')
+
+</script>
+
+</body>
+</html>
