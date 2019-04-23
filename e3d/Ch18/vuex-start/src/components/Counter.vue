@@ -6,19 +6,28 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapActions } = createNamespacedHelpers('counter')
+
 export default {
-  name: 'Counter',
-  props: {
-    // count: Number
-  },
+  name: 'Counter',  
   computed: {
-    count() {
-      return this.$store.state.count
-    }
+    /* count() {      
+      console.log(`store: ${this.$store}`)
+      return this.$store.state.counter.count
+    } */
+    ...mapState(
+      { count: `count` }  // syntax 1
+      // [ `count` ]      // syntax 2
+    )
   },
   methods: {
-    increment() { this.$store.commit('increment')},
-    decrement() { this.$store.commit('decrement')}
+    /* increment() { this.$store.dispatch('counter/increment')},
+    decrement() { this.$store.dispatch('counter/decrement')} */
+    ...mapActions([
+      'increment',
+      'decrement'
+    ])
   }
 }
 </script>
